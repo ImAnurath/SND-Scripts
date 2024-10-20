@@ -2,14 +2,17 @@ skill1 = "\"Riddle of Fire\""
 skill2 = "\"Fire's Reply\""
 buff   = "\"Brotherhood\""
 loop = 0
-
--- ###########################################################################
-
+--[[
+    ''''''WIP 
+    - Needs better inventory management
+    - Can have better logic for movement
+    - Desyn and coffer opening can be tied to in game state (It feels buggy tho)
+    - Needs to check if it is the first time starting or the Duty Finder is set properly
+    - Can use the skill better, doesn't have to wait to move to boss to start casting feels clunky
+]]
 function checkInventory()
     return GetInventoryFreeSlotCount()
 end
-
--- ###########################################################################
 
 function getTargetPos()
     x = GetTargetRawXPos()
@@ -17,8 +20,6 @@ function getTargetPos()
     z = GetTargetRawZPos()
     return x,y,z
 end
-
--- ###########################################################################
 
 function selectTarget() -- Target enemy, if untarget, gotta call the function again
         local current_target = GetTargetName()
@@ -31,7 +32,6 @@ function selectTarget() -- Target enemy, if untarget, gotta call the function ag
         end
 end
 
--- ###########################################################################
 
 function MoveTo(valuex, valuey, valuez, stopdistance, FlyOrWalk)
     function MeshCheck()
@@ -83,15 +83,11 @@ function MoveTo(valuex, valuey, valuez, stopdistance, FlyOrWalk)
     LogInfo("[MoveTo] Completed")
 end
 
--- ###########################################################################
-
 function PlayerTest()
     repeat
         yield("/wait 0.5")
     until IsPlayerAvailable()
 end
-
--- ###########################################################################
 
 function GoInDuty()
     -- Open Duty Finder if not already
@@ -124,8 +120,6 @@ function GoInDuty()
     end
 end
 
--- ###########################################################################
-
 function checkInv()
     local loot_items = {
         Garudas_Gaze    = 1674,
@@ -152,8 +146,6 @@ function checkInv()
     return total_count
 end
 
--- ###########################################################################
-
 function desyn(item_count)
     yield("/generalaction Desynthesis")
     yield("/waitaddon SalvageItemSelector")
@@ -167,14 +159,10 @@ function desyn(item_count)
     yield("/pcall SalvageItemSelector true -1")
 end
 
--- ###########################################################################
-
 function executeSkill(skill)
     yield("/ac "..skill)
     yield("/wait 1")
 end
-
--- ###########################################################################
 
 function openCoffer()
     yield("/target Treasure Coffer")
@@ -182,15 +170,12 @@ function openCoffer()
     yield("/wait 1")
 end
 
--- ###########################################################################
-
 function openCoffer_Inventory()
     yield("/item " .. "Vortex Weapon Coffer (IL 70)")
     yield("/wait 1.0")
     haveCoffer = false
 end
 
--- ###########################################################################
 local repeat_amount = 5
 local repeat_counter = 0
 while repeat_counter < repeat_amount do
