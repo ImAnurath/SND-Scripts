@@ -9,6 +9,9 @@ loop = 0
     - Desyn and coffer opening can be tied to in game state (It feels buggy tho)
     - Needs to check if it is the first time starting or the Duty Finder is set properly
     - Can use the skill better, doesn't have to wait to move to boss to start casting feels clunky
+    - Make it so that it check armory chest too, and target the specific garuda items instead
+    - You need NavMesh for this script
+    - Yes Please plugin needs to have Salvage Dialog, Salvage Dialogh(Bulk)? - Salvage Results
 ]]
 function checkInventory()
     return GetInventoryFreeSlotCount()
